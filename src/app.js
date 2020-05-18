@@ -6,13 +6,13 @@ const helmet = require('helmet')
 
 const app = express()
 
-const const morganOption = (NODE_ENV === 'production')
-  ? 'tiny'
-  : 'common';
+const { NODE_ENV } = require('./config')
+const morganSetting = process.env.NODE_ENV === 'production' ? 'tiny' : 'common'
+app.use(morgan(morganSetting));
 
 app.use(morgan(morganOption))
 app.use(helmet())
-const { NODE_ENV } = require('./config')
+
 app.use(cors())
 
 app.get('/', (req, res) => {
